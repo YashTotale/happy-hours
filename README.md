@@ -2,6 +2,12 @@
 <h1 align="center">Happy Hours</h1>
 <p align="center">Unwind, relax, and collaborate with your peers with Happy Hours!</p>
 
+## Links
+
+- [DevPost Project Page](https://devpost.com/software/happy-hours)
+- [Happy Hours Demo Video](https://youtu.be/yvwz2xagJ6k)
+- [Happy Hours Code Walkthrough](https://youtu.be/8ARJKwP28bw)
+
 ## Inspiration
 
 Lack of social interaction is one aspect of distance learning that has been particularly challenging for students. Since there is no centralized platform (that I know of) that allows for the creation and sharing of "happy hours", meetings that help students relax with their peers, I decided to create one.
