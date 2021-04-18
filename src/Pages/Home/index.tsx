@@ -1,6 +1,7 @@
 // React Imports
 import React, { FC } from "react";
 import Filters from "./Filters";
+import HappyHour from "./HappyHour";
 import { DRAWER_WIDTH } from "../../Utils/constants";
 
 // Firebase Imports
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    padding: theme.spacing(2),
     [theme.breakpoints.up("md")]: {
       marginLeft: DRAWER_WIDTH,
     },
@@ -38,7 +40,7 @@ const Home: FC = () => {
         {happyHoursLoading ? (
           <CircularProgress />
         ) : happyHours ? (
-          happyHours.map((h) => <h1 key={h.id}>{h.name}</h1>)
+          happyHours.map((h) => <HappyHour key={h.id} {...h} />)
         ) : (
           <Typography>No Happy Hours found.</Typography>
         )}
