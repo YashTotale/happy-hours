@@ -12,7 +12,7 @@ Happy Hours is a fully functioning web application. It allows students to create
 
 ## How I built it
 
-I built Happy Hours with React, Redux, Firebase, and Material UI. React provides the architecture of the application, Redux manages the state, Firebase provides a fully functioning backend and database, and Material UI provides effective styling.
+I built Happy Hours with React (w/ TypeScript), Redux, Firebase, and Material UI. React provides the architecture of the application, Redux manages the state, Firebase provides a fully functioning backend and database, and Material UI provides effective styling.
 
 ## Challenges I ran into
 
