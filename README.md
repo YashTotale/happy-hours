@@ -7,6 +7,7 @@
 - [DevPost Project Page](https://devpost.com/software/happy-hours)
 - [Happy Hours Demo Video](https://youtu.be/yvwz2xagJ6k)
 - [Happy Hours Code Walkthrough](https://youtu.be/8ARJKwP28bw)
+- [Website](https://happy-hours.us/)
 
 ## Inspiration
 
