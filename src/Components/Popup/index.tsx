@@ -120,7 +120,7 @@ const LoginPopup: FC<PopupProps> = ({
 
               if (isNew) {
                 const name = result.additionalUserInfo.profile.name;
-                snackbar.enqueueSnackbar(`Welcome to AP Questions, ${name}!`, {
+                snackbar.enqueueSnackbar(`Welcome to Happy Hours, ${name}!`, {
                   variant: "default",
                   autoHideDuration: 6000,
                 });

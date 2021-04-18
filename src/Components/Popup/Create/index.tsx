@@ -92,6 +92,7 @@ const Create: FC = () => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputField errors={errors} name="title" register={register} />
         <DatePickers control={control} />
+        <InputField errors={errors} name="link" register={register} />
         <Divider flexItem className={classes.divider} />
         <InputField
           errors={errors}

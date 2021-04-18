@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 1, 0),
   },
   searches: {
-    paddingLeft: theme.spacing(1),
+    padding: theme.spacing(0, 1),
   },
   search: {
     margin: theme.spacing(1, 0),

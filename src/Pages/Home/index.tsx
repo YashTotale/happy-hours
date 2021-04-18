@@ -20,7 +20,8 @@ import {
 import { Sort } from "../../Redux/filters.slice";
 
 // Material UI Imports
-import { CircularProgress, makeStyles, Typography } from "@material-ui/core";
+import { CircularProgress, makeStyles } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       marginLeft: DRAWER_WIDTH,
     },
+  },
+  alert: {
+    width: "100%",
   },
 }));
 
@@ -104,43 +108,46 @@ const Home: FC = () => {
   const sort = useSelector(getSortFilter);
   const search = useSelector(getSearch);
 
+  const hours = happyHoursLoading
+    ? []
+    : sortHours(
+        happyHours.filter((h) => {
+          const searchCheck = Object.entries(search).some(([key, value]) => {
+            if (!value) return false;
+
+            const val = h[key as keyof typeof search];
+
+            const checkVal = (v: string) => {
+              if (v.toLowerCase().includes(value.toLowerCase())) return true;
+            };
+
+            if (Array.isArray(val)) {
+              if (!val.some(checkVal)) return true;
+            } else {
+              if (!checkVal(val)) return true;
+            }
+
+            return false;
+          });
+
+          return !searchCheck;
+        }),
+        sort,
+        user
+      );
+
   return (
     <>
       <Filters />
       <div className={classes.container}>
         {happyHoursLoading ? (
           <CircularProgress />
-        ) : happyHours ? (
-          sortHours(
-            happyHours.filter((h) => {
-              const searchCheck = Object.entries(search).some(
-                ([key, value]) => {
-                  if (!value) return false;
-
-                  const val = h[key as keyof typeof search];
-
-                  const checkVal = (v: string) => {
-                    if (v.toLowerCase().includes(value.toLowerCase()))
-                      return true;
-                  };
-
-                  if (Array.isArray(val)) {
-                    if (!val.some(checkVal)) return true;
-                  } else {
-                    if (!checkVal(val)) return true;
-                  }
-
-                  return false;
-                }
-              );
-
-              return !searchCheck;
-            }),
-            sort,
-            user
-          ).map((h) => <HappyHour key={h.id} {...h} />)
+        ) : hours.length ? (
+          hours.map((h) => <HappyHour key={h.id} {...h} />)
         ) : (
-          <Typography>No Happy Hours found.</Typography>
+          <Alert variant="outlined" severity="error" className={classes.alert}>
+            No Happy Hours found.
+          </Alert>
         )}
       </div>
     </>
