@@ -74,7 +74,8 @@ const Popup: FC = () => {
       return <LogoutPopup {...props} />;
     }
     case "create": {
-      if (!user.isEmpty && open) dispatch(togglePopup(false));
+      if (user.isEmpty && open)
+        dispatch(togglePopup({ type: "login", open: true }));
 
       return (
         <Dialog open={open} onClose={() => dispatch(togglePopup(false))}>

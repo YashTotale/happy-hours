@@ -64,15 +64,19 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   tag: {
     margin: theme.spacing(1, 1, 1, 0),
   },
-  join: ({ isAttending }) => ({
+  btns: {
+    display: "flex",
     margin: theme.spacing(1, 0, 1, "auto"),
+  },
+  join: ({ isAttending }) => ({
+    margin: theme.spacing(0, 1),
     backgroundColor: isAttending
       ? theme.palette.error.main
-      : theme.palette.primary.main,
+      : theme.palette.success.main,
     "&:hover": {
       backgroundColor: isAttending
         ? darken(theme.palette.error.main, 0.1)
-        : darken(theme.palette.primary.main, 0.1),
+        : darken(theme.palette.success.main, 0.1),
     },
   }),
 }));
@@ -84,6 +88,7 @@ const HappyHour: FC<TypeWithId<HappyHourProps>> = ({
   attendees,
   start,
   end,
+  link,
   id,
 }) => {
   const dispatch = useAppDispatch();
@@ -110,36 +115,47 @@ const HappyHour: FC<TypeWithId<HappyHourProps>> = ({
           <Chip key={i} label={tag} className={classes.tag} />
         ))}
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          if (user.isEmpty) {
-            dispatch(togglePopup({ open: true, type: "login" }));
-            return;
-          }
+      <div className={classes.btns}>
+        {isAttending && (
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            <Button variant="contained" color="primary">
+              Go to meeting
+            </Button>
+          </a>
+        )}
+        <Button
+          variant="contained"
+          onClick={() => {
+            if (user.isEmpty) {
+              dispatch(togglePopup({ open: true, type: "login" }));
+              return;
+            }
 
-          const newAttendees = [...attendees];
+            const newAttendees = [...attendees];
 
-          if (!isAttending) newAttendees.push(user.uid);
-          else {
-            newAttendees.splice(newAttendees.indexOf(user.uid), 1);
-          }
+            if (!isAttending) newAttendees.push(user.uid);
+            else {
+              newAttendees.splice(newAttendees.indexOf(user.uid), 1);
+            }
 
-          firestore
-            .collection("happyHours")
-            .doc(id)
-            .update("attendees", newAttendees)
-            .then(() => {
-              enqueueSnackbar(`${isAttending ? "Left" : "Joined"} '${title}'`, {
-                variant: "success",
+            firestore
+              .collection("happyHours")
+              .doc(id)
+              .update("attendees", newAttendees)
+              .then(() => {
+                enqueueSnackbar(
+                  `${isAttending ? "Left" : "Joined"} '${title}'`,
+                  {
+                    variant: "success",
+                  }
+                );
               });
-            });
-        }}
-        className={classes.join}
-      >
-        {isAttending ? "Leave" : "Join!"}
-      </Button>
+          }}
+          className={classes.join}
+        >
+          {isAttending ? "Leave" : "Join"}
+        </Button>
+      </div>
     </Paper>
   );
 };

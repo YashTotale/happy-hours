@@ -10,7 +10,7 @@ import DatePickers from "./DatePickers";
 
 // Redux Imports
 import { useSelector } from "react-redux";
-import { getUser, setSort } from "../../../Redux";
+import { getUser, setSort, togglePopup } from "../../../Redux";
 import { useAppDispatch } from "../../../Store";
 
 // Firebase Imports
@@ -72,6 +72,7 @@ const Create: FC = () => {
       })
       .then(() => {
         dispatch(setSort("Most Recently Created"));
+        dispatch(togglePopup(false));
         enqueueSnackbar("Successfully created Happy Hour!", {
           variant: "success",
         });

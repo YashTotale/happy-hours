@@ -108,33 +108,34 @@ const Home: FC = () => {
   const sort = useSelector(getSortFilter);
   const search = useSelector(getSearch);
 
-  const hours = happyHoursLoading
-    ? []
-    : sortHours(
-        happyHours.filter((h) => {
-          const searchCheck = Object.entries(search).some(([key, value]) => {
-            if (!value) return false;
+  const hours =
+    happyHoursLoading || !happyHours
+      ? []
+      : sortHours(
+          happyHours.filter((h) => {
+            const searchCheck = Object.entries(search).some(([key, value]) => {
+              if (!value) return false;
 
-            const val = h[key as keyof typeof search];
+              const val = h[key as keyof typeof search];
 
-            const checkVal = (v: string) => {
-              if (v.toLowerCase().includes(value.toLowerCase())) return true;
-            };
+              const checkVal = (v: string) => {
+                if (v.toLowerCase().includes(value.toLowerCase())) return true;
+              };
 
-            if (Array.isArray(val)) {
-              if (!val.some(checkVal)) return true;
-            } else {
-              if (!checkVal(val)) return true;
-            }
+              if (Array.isArray(val)) {
+                if (!val.some(checkVal)) return true;
+              } else {
+                if (!checkVal(val)) return true;
+              }
 
-            return false;
-          });
+              return false;
+            });
 
-          return !searchCheck;
-        }),
-        sort,
-        user
-      );
+            return !searchCheck;
+          }),
+          sort,
+          user
+        );
 
   return (
     <>
