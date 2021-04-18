@@ -52,7 +52,7 @@ const Filters: FC = () => {
       <div>
         <div className={classes.toolbar} />
         <Typography variant="h4" className={classes.heading}>
-          Sort
+          Sort by
         </Typography>
         <div className={classes.filter}>
           <RadioGroup
@@ -88,6 +88,7 @@ const useSidebarStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: DRAWER_WIDTH,
     padding: theme.spacing(1),
+    backgroundColor: theme.palette.background.default,
   },
 }));
 
