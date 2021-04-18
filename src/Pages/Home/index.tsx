@@ -14,6 +14,7 @@ import {
   getHappyHours,
   getHappyHoursLoading,
   getSortFilter,
+  getSearch,
 } from "../../Redux";
 import { Sort } from "../../Redux/filters.slice";
 
@@ -70,6 +71,7 @@ const Home: FC = () => {
   const happyHoursLoading = useSelector(getHappyHoursLoading);
 
   const sort = useSelector(getSortFilter);
+  const search = useSelector(getSearch);
 
   return (
     <>
@@ -78,9 +80,33 @@ const Home: FC = () => {
         {happyHoursLoading ? (
           <CircularProgress />
         ) : happyHours ? (
-          sortHours(happyHours, sort).map((h) => (
-            <HappyHour key={h.id} {...h} />
-          ))
+          sortHours(
+            happyHours.filter((h) => {
+              const searchCheck = Object.entries(search).some(
+                ([key, value]) => {
+                  if (!value) return false;
+
+                  const val = h[key as keyof typeof search];
+
+                  const checkVal = (v: string) => {
+                    if (v.toLowerCase().includes(value.toLowerCase()))
+                      return true;
+                  };
+
+                  if (Array.isArray(val)) {
+                    if (!val.some(checkVal)) return true;
+                  } else {
+                    if (!checkVal(val)) return true;
+                  }
+
+                  return false;
+                }
+              );
+
+              return !searchCheck;
+            }),
+            sort
+          ).map((h) => <HappyHour key={h.id} {...h} />)
         ) : (
           <Typography>No Happy Hours found.</Typography>
         )}

@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HappyHour: FC<HappyHourProps> = ({
-  name,
+  title,
   description,
   tags,
   attendees,
@@ -66,7 +66,7 @@ const HappyHour: FC<HappyHourProps> = ({
     <Paper elevation={8} className={classes.happyHour}>
       <div className={classes.top}>
         <Typography variant="h4" className={classes.heading}>
-          {name}
+          {title}
         </Typography>
         <Attendees attendees={attendees} />
       </div>

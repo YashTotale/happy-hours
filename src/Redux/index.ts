@@ -72,8 +72,10 @@ export {
   default as filtersSlice,
   // -> Selectors
   getSortFilter,
+  getSearch,
   // -> Actions
   setSort,
+  setSearch,
   // -> Reducer
   filtersReducer,
   // -> State

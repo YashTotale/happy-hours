@@ -10,17 +10,21 @@ import {
   getSortFilter,
   setSort,
   toggleMenuOpen,
+  getSearch,
+  setSearch,
 } from "../../Redux";
-import { Sort, sortValues } from "../../Redux/filters.slice";
+import { searches, Sort, sortValues } from "../../Redux/filters.slice";
 
 // Material UI Imports
 import {
+  capitalize,
   Drawer,
   FormControlLabel,
   Hidden,
   makeStyles,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
   useTheme,
 } from "@material-ui/core";
@@ -39,6 +43,12 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     margin: theme.spacing(1, 1, 0),
   },
+  searches: {
+    paddingLeft: theme.spacing(1),
+  },
+  search: {
+    margin: theme.spacing(1, 0),
+  },
 }));
 
 const Filters: FC = () => {
@@ -46,6 +56,7 @@ const Filters: FC = () => {
   const dispatch = useAppDispatch();
 
   const sort = useSelector(getSortFilter);
+  const search = useSelector(getSearch);
 
   return (
     <Sidebar>
@@ -69,6 +80,23 @@ const Filters: FC = () => {
               />
             ))}
           </RadioGroup>
+        </div>
+        <Typography variant="h4" className={classes.heading}>
+          Search
+        </Typography>
+        <div className={classes.searches}>
+          {searches.map((s, i) => (
+            <TextField
+              key={i}
+              label={`Search ${capitalize(s)}`}
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={search[s]}
+              onChange={(e) => dispatch(setSearch({ [s]: e.target.value }))}
+              className={classes.search}
+            />
+          ))}
         </div>
       </div>
     </Sidebar>

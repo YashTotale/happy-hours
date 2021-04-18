@@ -7,12 +7,13 @@ export interface FirestoreDate {
 }
 
 export interface HappyHourInputs {
-  name: string;
+  title: string;
   description: string;
   start: ParsableDate;
   end: ParsableDate;
   tags: string[];
 }
+
 export interface HappyHour extends HappyHourInputs {
   start: FirestoreDate;
   end: FirestoreDate;

@@ -16,11 +16,25 @@ export const sortValues: Sort[] = [
 
 export interface FiltersState {
   sort: Sort;
+  search: {
+    title: string;
+    description: string;
+    tags: string;
+  };
 }
 
 export const initialFiltersState: FiltersState = {
   sort: sortValues[0],
+  search: {
+    title: "",
+    description: "",
+    tags: "",
+  },
 };
+
+export const searches = Object.keys(
+  initialFiltersState.search
+) as (keyof typeof initialFiltersState.search)[];
 
 const filtersSlice = createSlice({
   name: "filters",
@@ -30,15 +44,28 @@ const filtersSlice = createSlice({
       ...state,
       sort: action.payload,
     }),
+    setSearch: (
+      state,
+      action: PayloadAction<Partial<FiltersState["search"]>>
+    ) => ({
+      ...state,
+      search: {
+        ...state.search,
+        ...action.payload,
+      },
+    }),
   },
 });
 
 // Actions
-export const { setSort } = filtersSlice.actions;
+export const { setSort, setSearch } = filtersSlice.actions;
 
 // Selectors
 export const getSortFilter = (state: RootState): FiltersState["sort"] =>
   state.filters.sort;
+
+export const getSearch = (state: RootState): FiltersState["search"] =>
+  state.filters.search;
 
 // Reducer
 export const filtersReducer = filtersSlice.reducer;

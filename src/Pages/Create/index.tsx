@@ -87,7 +87,7 @@ const Create: FC = () => {
         Create a Happy Hour
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputField errors={errors} name="name" register={register} />
+        <InputField errors={errors} name="title" register={register} />
         <InputField
           errors={errors}
           name="description"
