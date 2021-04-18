@@ -4,25 +4,79 @@ import React, { FC } from "react";
 // Redux Imports
 import { useAppDispatch } from "../../Store";
 import { useSelector } from "react-redux";
-import { getIsMenuOpen, toggleMenuOpen } from "../../Redux";
+import {
+  getIsMenuOpen,
+  getSortFilter,
+  setSort,
+  toggleMenuOpen,
+} from "../../Redux";
+import { Sort, sortValues } from "../../Redux/filters.slice";
 
 // Material UI Imports
 import {
-  Divider,
   Drawer,
+  FormControlLabel,
   Hidden,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   makeStyles,
+  Radio,
+  RadioGroup,
+  Typography,
   useTheme,
 } from "@material-ui/core";
-import { Inbox as InboxIcon, Mail as MailIcon } from "@material-ui/icons";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
+  toolbar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  },
+  filter: {
+    paddingLeft: theme.spacing(3),
+  },
+  heading: {
+    margin: theme.spacing(1, 1, 0),
+  },
+}));
+
+const Filters: FC = () => {
+  const classes = useStyles();
+  const dispatch = useAppDispatch();
+
+  const sort = useSelector(getSortFilter);
+
+  return (
+    <Sidebar>
+      <div>
+        <div className={classes.toolbar} />
+        <Typography variant="h4" className={classes.heading}>
+          Sort
+        </Typography>
+        <div className={classes.filter}>
+          <RadioGroup
+            name="sort-options"
+            value={sort}
+            onChange={(e) => dispatch(setSort(e.target.value as Sort))}
+          >
+            {sortValues.map((val, i) => (
+              <FormControlLabel
+                key={i}
+                value={val}
+                label={val}
+                control={<Radio />}
+              />
+            ))}
+          </RadioGroup>
+        </div>
+      </div>
+    </Sidebar>
+  );
+};
+
+const useSidebarStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
@@ -32,52 +86,17 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
-  toolbar: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-  },
   drawerPaper: {
     width: drawerWidth,
   },
 }));
 
-const Filters: FC = () => {
-  const classes = useStyles();
+const Sidebar: FC = ({ children }) => {
+  const classes = useSidebarStyles();
   const dispatch = useAppDispatch();
   const theme = useTheme();
 
   const isMenuOpen = useSelector(getIsMenuOpen);
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
 
   return (
     <div className={classes.root}>
@@ -95,7 +114,7 @@ const Filters: FC = () => {
               keepMounted: true,
             }}
           >
-            {drawer}
+            {children}
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -106,7 +125,7 @@ const Filters: FC = () => {
             variant="permanent"
             open
           >
-            {drawer}
+            {children}
           </Drawer>
         </Hidden>
       </nav>

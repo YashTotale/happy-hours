@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import ChipInput from "material-ui-chip-input";
 import { useClosableSnackbar } from "../../Hooks";
+import { HappyHour } from "../../Utils/types";
 import InputField from "./InputField";
 import DatePickers from "./DatePickers";
 
@@ -11,7 +12,6 @@ import { useFirestore } from "react-redux-firebase";
 
 // Material UI Imports
 import { Button, makeStyles, Paper, Typography } from "@material-ui/core";
-import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -31,14 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface Inputs {
-  name: string;
-  description: string;
-  start: ParsableDate;
-  end: ParsableDate;
-  tags: string[];
-}
-
 const Create: FC = () => {
   const classes = useStyles();
   const firestore = useFirestore();
@@ -49,7 +41,7 @@ const Create: FC = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<HappyHour>({
     defaultValues: {
       start: new Date(),
       end: new Date(),
@@ -57,7 +49,7 @@ const Create: FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<HappyHour> = (data) => {
     firestore
       .collection("happyHours")
       .add(data)
