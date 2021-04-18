@@ -2,12 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../Store";
 
 export type Sort =
+  | "Attending First"
+  | "Attending Last"
   | "Most Recently Created"
   | "Least Recently Created"
   | "Most Attendees"
   | "Least Attendees";
 
 export const sortValues: Sort[] = [
+  "Attending First",
+  "Attending Last",
   "Most Recently Created",
   "Least Recently Created",
   "Most Attendees",

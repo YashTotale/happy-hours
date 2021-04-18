@@ -6,7 +6,7 @@ import { DRAWER_WIDTH } from "../../Utils/constants";
 import { parseFirestoreDate } from "../../Utils/funcs";
 
 // Firebase Imports
-import { useFirestoreConnect } from "react-redux-firebase";
+import { FirebaseReducer, useFirestoreConnect } from "react-redux-firebase";
 
 // Redux Imports
 import { useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import {
   getHappyHoursLoading,
   getSortFilter,
   getSearch,
+  getUser,
 } from "../../Redux";
 import { Sort } from "../../Redux/filters.slice";
 
@@ -34,10 +35,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const sortHours = (hours: ReturnType<typeof getHappyHours>, sort: Sort) => {
+const sortHours = (
+  hours: ReturnType<typeof getHappyHours>,
+  sort: Sort,
+  user: FirebaseReducer.AuthState
+) => {
   const toSort = [...hours];
 
   switch (sort) {
+    case "Attending First": {
+      if (user.isEmpty) return toSort;
+
+      return toSort.sort((a, b) =>
+        a.attendees.includes(user.uid)
+          ? -1
+          : b.attendees.includes(user.uid)
+          ? 1
+          : 0
+      );
+    }
+    case "Attending Last": {
+      if (user.isEmpty) return toSort;
+
+      return toSort.sort((a, b) =>
+        a.attendees.includes(user.uid)
+          ? 1
+          : b.attendees.includes(user.uid)
+          ? -1
+          : 0
+      );
+    }
     case "Most Attendees": {
       return toSort.sort((a, b) => b.attendees.length - a.attendees.length);
     }
@@ -58,6 +85,9 @@ const sortHours = (hours: ReturnType<typeof getHappyHours>, sort: Sort) => {
           parseFirestoreDate(a.created).getTime()
       );
     }
+    default: {
+      return toSort;
+    }
   }
 };
 
@@ -66,6 +96,7 @@ const Home: FC = () => {
   useFirestoreConnect({ collection: "users" });
 
   const classes = useStyles();
+  const user = useSelector(getUser);
 
   const happyHours = useSelector(getHappyHours);
   const happyHoursLoading = useSelector(getHappyHoursLoading);
@@ -105,7 +136,8 @@ const Home: FC = () => {
 
               return !searchCheck;
             }),
-            sort
+            sort,
+            user
           ).map((h) => <HappyHour key={h.id} {...h} />)
         ) : (
           <Typography>No Happy Hours found.</Typography>
