@@ -1,5 +1,6 @@
 // React Imports
 import React, { FC } from "react";
+import { DRAWER_WIDTH } from "../../Utils/constants";
 
 // Redux Imports
 import { useAppDispatch } from "../../Store";
@@ -23,8 +24,6 @@ import {
   Typography,
   useTheme,
 } from "@material-ui/core";
-
-const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -82,12 +81,13 @@ const useSidebarStyles = makeStyles((theme) => ({
   },
   drawer: {
     [theme.breakpoints.up("md")]: {
-      width: drawerWidth,
+      width: DRAWER_WIDTH,
       flexShrink: 0,
     },
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: DRAWER_WIDTH,
+    padding: theme.spacing(1),
   },
 }));
 

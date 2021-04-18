@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import ChipInput from "material-ui-chip-input";
 import { useClosableSnackbar } from "../../Hooks";
-import { HappyHour } from "../../Utils/types";
+import { HappyHourInputs } from "../../Utils/types";
 import InputField from "./InputField";
 import DatePickers from "./DatePickers";
 
@@ -41,7 +41,7 @@ const Create: FC = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<HappyHour>({
+  } = useForm<HappyHourInputs>({
     defaultValues: {
       start: new Date(),
       end: new Date(),
@@ -49,10 +49,10 @@ const Create: FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<HappyHour> = (data) => {
+  const onSubmit: SubmitHandler<HappyHourInputs> = (data) => {
     firestore
       .collection("happyHours")
-      .add(data)
+      .add({ ...data, attendees: [], created: new Date() })
       .then(() => {
         enqueueSnackbar("Successfully created Happy Hour!", {
           variant: "success",

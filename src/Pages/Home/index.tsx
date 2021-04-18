@@ -1,6 +1,7 @@
 // React Imports
 import React, { FC } from "react";
 import Filters from "./Filters";
+import { DRAWER_WIDTH } from "../../Utils/constants";
 
 // Firebase Imports
 import { useFirestoreConnect } from "react-redux-firebase";
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: DRAWER_WIDTH,
+    },
   },
 }));
 

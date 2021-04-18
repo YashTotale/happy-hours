@@ -1,7 +1,7 @@
 // React Imports
 import React, { FC } from "react";
 import { Controller, Control, ControllerRenderProps } from "react-hook-form";
-import { HappyHour } from "../../Utils/types";
+import { HappyHourInputs } from "../../Utils/types";
 
 // Material UI Imports
 import { DateTimePicker, DateTimePickerProps } from "@material-ui/pickers";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface DatePickersProps {
-  control: Control<HappyHour>;
+  control: Control<HappyHourInputs>;
 }
 
 const DatePickers: FC<DatePickersProps> = ({ control }) => {
@@ -48,7 +48,7 @@ type Name = "start" | "end";
 
 interface PickerProps {
   name: Name;
-  field: ControllerRenderProps<HappyHour, Name>;
+  field: ControllerRenderProps<HappyHourInputs, Name>;
   props?: Partial<DateTimePickerProps>;
 }
 

@@ -6,7 +6,7 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
-import { HappyHour } from "../../Utils/types";
+import { HappyHourInputs } from "../../Utils/types";
 
 // Material UI Imports
 import {
@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface InputFieldProps {
-  name: keyof HappyHour;
-  register: UseFormRegister<HappyHour>;
-  errors: DeepMap<HappyHour, FieldError>;
+  name: keyof HappyHourInputs;
+  register: UseFormRegister<HappyHourInputs>;
+  errors: DeepMap<HappyHourInputs, FieldError>;
   props?: TextFieldProps;
   inputProps?: InputProps;
   rules?: Partial<RegisterOptions>;
