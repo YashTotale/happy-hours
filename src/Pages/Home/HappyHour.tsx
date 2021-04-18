@@ -1,6 +1,7 @@
 // React Imports
 import React, { FC } from "react";
 import { HappyHour as HappyHourProps } from "../../Utils/types";
+import { createTimePeriod } from "../../Utils/funcs";
 
 // Redux Imports
 import { useSelector } from "react-redux";
@@ -33,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     textAlign: "start",
   },
+  dates: {
+    textAlign: "start",
+    margin: theme.spacing(1, 0, 0),
+  },
   description: {
     textAlign: "start",
     margin: theme.spacing(1, 0),
@@ -53,6 +58,8 @@ const HappyHour: FC<HappyHourProps> = ({
   description,
   tags,
   attendees,
+  start,
+  end,
 }) => {
   const classes = useStyles();
 
@@ -64,6 +71,9 @@ const HappyHour: FC<HappyHourProps> = ({
         </Typography>
         <Attendees attendees={attendees} />
       </div>
+      <Typography color="textSecondary" className={classes.dates}>
+        {createTimePeriod(start, end)}
+      </Typography>
       <Typography className={classes.description}>{description}</Typography>
       <div className={classes.tags}>
         {tags.map((tag, i) => (

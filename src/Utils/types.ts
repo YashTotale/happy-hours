@@ -1,7 +1,7 @@
 // Material UI Imports
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
-interface FirestoreDate {
+export interface FirestoreDate {
   seconds: number;
   nanoseconds: number;
 }
