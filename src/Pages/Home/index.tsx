@@ -20,8 +20,7 @@ import {
 import { Sort } from "../../Redux/filters.slice";
 
 // Material UI Imports
-import { CircularProgress, makeStyles } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { CircularProgress, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -146,9 +145,9 @@ const Home: FC = () => {
         ) : hours.length ? (
           hours.map((h) => <HappyHour key={h.id} {...h} />)
         ) : (
-          <Alert variant="outlined" severity="error" className={classes.alert}>
+          <Typography className={classes.alert}>
             No Happy Hours found.
-          </Alert>
+          </Typography>
         )}
       </div>
     </>
