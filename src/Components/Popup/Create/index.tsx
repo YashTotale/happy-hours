@@ -71,8 +71,8 @@ const Create: FC = () => {
         createdBy: user.uid,
       })
       .then(() => {
-        dispatch(setSort("Most Recently Created"));
         dispatch(togglePopup(false));
+        dispatch(setSort("Most Recently Created"));
         enqueueSnackbar("Successfully created Happy Hour!", {
           variant: "success",
         });
