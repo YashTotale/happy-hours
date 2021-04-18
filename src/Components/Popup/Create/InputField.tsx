@@ -6,7 +6,7 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from "react-hook-form";
-import { HappyHourInputs } from "../../Utils/types";
+import { HappyHourInputs } from "../../../Utils/types";
 
 // Material UI Imports
 import {

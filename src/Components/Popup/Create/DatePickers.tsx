@@ -1,7 +1,7 @@
 // React Imports
 import React, { FC } from "react";
 import { Controller, Control, ControllerRenderProps } from "react-hook-form";
-import { HappyHourInputs } from "../../Utils/types";
+import { HappyHourInputs } from "../../../Utils/types";
 
 // Material UI Imports
 import { DateTimePicker, DateTimePickerProps } from "@material-ui/pickers";
@@ -10,13 +10,15 @@ import { capitalize, makeStyles, Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
     margin: theme.spacing(1, 0),
     width: "100%",
   },
-  picker: {
-    margin: theme.spacing(0, 2),
+  start: {
+    marginRight: theme.spacing(2),
+  },
+  end: {
+    marginLeft: theme.spacing(2),
   },
 }));
 
@@ -57,13 +59,13 @@ const Picker: FC<PickerProps> = ({ name, field, props }) => {
 
   return (
     <DateTimePicker
-      label={capitalize(name)}
+      label={capitalize(name) + "*"}
       inputVariant="outlined"
       disablePast
       value={field.value}
       onChange={(d) => field.onChange(d?.toDate())}
       showTodayButton
-      className={classes.picker}
+      className={classes[name]}
       {...props}
     />
   );

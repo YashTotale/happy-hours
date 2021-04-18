@@ -3,25 +3,24 @@ import React, { FC } from "react";
 import { useHistory } from "react-router";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import ChipInput from "material-ui-chip-input";
-import { useClosableSnackbar } from "../../Hooks";
-import { HappyHourInputs } from "../../Utils/types";
+import { useClosableSnackbar } from "../../../Hooks";
+import { HappyHourInputs } from "../../../Utils/types";
 import InputField from "./InputField";
 import DatePickers from "./DatePickers";
 
 // Redux Imports
 import { useSelector } from "react-redux";
-import { getUser, setSort } from "../../Redux";
-import { useAppDispatch } from "../../Store";
+import { getUser, setSort } from "../../../Redux";
+import { useAppDispatch } from "../../../Store";
 
 // Firebase Imports
 import { useFirestore } from "react-redux-firebase";
 
 // Material UI Imports
-import { Button, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Button, Divider, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: theme.spacing(2),
     padding: theme.spacing(2),
   },
   form: {
@@ -31,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     margin: theme.spacing(2),
     padding: theme.spacing(0, 2),
+  },
+  divider: {
+    height: 2,
+    margin: theme.spacing(3, 0),
   },
   submit: {
     marginTop: theme.spacing(2),
@@ -82,19 +85,20 @@ const Create: FC = () => {
   };
 
   return (
-    <Paper elevation={10} className={classes.container}>
+    <div className={classes.container}>
       <Typography variant="h4" align="center">
         Create a Happy Hour
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputField errors={errors} name="title" register={register} />
+        <DatePickers control={control} />
+        <Divider flexItem className={classes.divider} />
         <InputField
           errors={errors}
           name="description"
           register={register}
           textarea
         />
-        <DatePickers control={control} />
         <Controller
           name="tags"
           control={control}
@@ -124,7 +128,7 @@ const Create: FC = () => {
           Create!
         </Button>
       </form>
-    </Paper>
+    </div>
   );
 };
 

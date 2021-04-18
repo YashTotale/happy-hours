@@ -115,7 +115,11 @@ const Navbar: FC = () => {
             </Tooltip>
           )}
           <Tooltip title="Create Happy Hour">
-            <IconButton onClick={() => history.push("/create")}>
+            <IconButton
+              onClick={() =>
+                dispatch(togglePopup({ open: true, type: "create" }))
+              }
+            >
               <Add />
             </IconButton>
           </Tooltip>

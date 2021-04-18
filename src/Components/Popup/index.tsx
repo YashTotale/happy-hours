@@ -1,11 +1,12 @@
 // React Imports
 import React, { FC } from "react";
 import { ProviderContext } from "notistack";
-import { useClosableSnackbar } from "../Hooks";
+import { useClosableSnackbar } from "../../Hooks";
+import CreatePopup from "./Create";
 
 // Redux Imports
-import { getPopupOpen, getPopupType, getUser, togglePopup } from "../Redux";
-import { AppDispatch, useAppDispatch } from "../Store";
+import { getPopupOpen, getPopupType, getUser, togglePopup } from "../../Redux";
+import { AppDispatch, useAppDispatch } from "../../Store";
 import { useSelector } from "react-redux";
 
 // Firebase Imports
@@ -71,6 +72,15 @@ const Popup: FC = () => {
       if (user.isEmpty && open) dispatch(togglePopup(false));
 
       return <LogoutPopup {...props} />;
+    }
+    case "create": {
+      if (!user.isEmpty && open) dispatch(togglePopup(false));
+
+      return (
+        <Dialog open={open} onClose={() => dispatch(togglePopup(false))}>
+          <CreatePopup />
+        </Dialog>
+      );
     }
   }
 };
