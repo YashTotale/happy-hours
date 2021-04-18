@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home: FC = () => {
   useFirestoreConnect({ collection: "happyHours" });
+  useFirestoreConnect({ collection: "users" });
 
   const classes = useStyles();
 

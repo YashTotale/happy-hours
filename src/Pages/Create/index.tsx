@@ -1,11 +1,17 @@
 // React Imports
 import React, { FC } from "react";
+import { useHistory } from "react-router";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import ChipInput from "material-ui-chip-input";
 import { useClosableSnackbar } from "../../Hooks";
 import { HappyHourInputs } from "../../Utils/types";
 import InputField from "./InputField";
 import DatePickers from "./DatePickers";
+
+// Redux Imports
+import { useSelector } from "react-redux";
+import { getUser, setSort } from "../../Redux";
+import { useAppDispatch } from "../../Store";
 
 // Firebase Imports
 import { useFirestore } from "react-redux-firebase";
@@ -32,9 +38,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Create: FC = () => {
+  const dispatch = useAppDispatch();
   const classes = useStyles();
   const firestore = useFirestore();
+  const history = useHistory();
   const { enqueueSnackbar } = useClosableSnackbar();
+  const user = useSelector(getUser);
 
   const {
     register,
@@ -52,11 +61,18 @@ const Create: FC = () => {
   const onSubmit: SubmitHandler<HappyHourInputs> = (data) => {
     firestore
       .collection("happyHours")
-      .add({ ...data, attendees: [], created: new Date() })
+      .add({
+        ...data,
+        attendees: [user.uid],
+        created: new Date(),
+        createdBy: user.uid,
+      })
       .then(() => {
+        dispatch(setSort("Most Recently Created"));
         enqueueSnackbar("Successfully created Happy Hour!", {
           variant: "success",
         });
+        history.push("/");
       })
       .catch((e) => {
         enqueueSnackbar("An error occurred. Please try again", {

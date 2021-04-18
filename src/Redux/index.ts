@@ -1,5 +1,5 @@
 import { FirebaseReducer, TypeWithId } from "react-redux-firebase";
-import { RootState } from "../Store";
+import { RootState, Profile } from "../Store";
 import { HappyHour } from "../Utils/types";
 
 /**
@@ -8,6 +8,12 @@ import { HappyHour } from "../Utils/types";
 
 export const getUser = (state: RootState): FirebaseReducer.AuthState =>
   state.firebase.auth;
+
+export const getUsers = (state: RootState): Record<string, Profile> =>
+  state.firestore.data.users;
+
+export const getUsersLoading = (state: RootState): boolean =>
+  state.firestore.status.requesting.users;
 
 export const getHappyHours = (state: RootState): TypeWithId<HappyHour>[] =>
   state.firestore.ordered.happyHours;

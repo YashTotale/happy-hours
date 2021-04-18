@@ -52,14 +52,16 @@ import { displayReducer, DisplayState } from "./Redux/display.slice";
 import { popupReducer, PopupState } from "./Redux/popup.slice";
 import { filtersReducer, FiltersState } from "./Redux/filters.slice";
 
+export interface Profile {
+  name: string;
+  picture: string;
+}
+
 interface State {
   display: DisplayState;
   popup: PopupState;
   filters: FiltersState;
-  firebase: FirebaseReducer.Reducer<
-    Record<string, unknown>,
-    Record<string, unknown>
-  >;
+  firebase: FirebaseReducer.Reducer<Profile, Record<string, unknown>>;
   firestore: FirestoreReducer.Reducer;
 }
 

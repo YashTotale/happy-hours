@@ -17,5 +17,6 @@ export interface HappyHour extends HappyHourInputs {
   start: FirestoreDate;
   end: FirestoreDate;
   created: FirestoreDate;
+  createdBy: string[];
   attendees: string[];
 }
