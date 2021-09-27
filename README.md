@@ -1,6 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/YashTotale/happy-hours/master/public/logo512.png" width="100" alt="Logo" /></p>
 <h1 align="center">Happy Hours</h1>
 <p align="center">Unwind, relax, and collaborate with your peers with Happy Hours!</p>
+<p align="center"><strong>1st Place Winner at Super Hacks 2021!</strong></p>
 
 ## Links
 
