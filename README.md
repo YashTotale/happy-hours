@@ -3,8 +3,7 @@
 <p align="center">Unwind, relax, and collaborate with your peers with Happy Hours!</p>
 <p align="center"><strong>1st Place Winner at Super Hacks 2021!</strong></p>
 <p align="center">
-  <a href="https://github.com/YashTotale/happy-hours/actions/workflows/integrate.yml"><img alt="Build" src="https://img.shields.io/github/workflow/status/YashTotale/happy-hours/Node%20CI?logo=github&logoColor=FFFFFF&labelColor=000000&label=Build&style=flat-square"></a>
-  <a href="https://lgtm.com/projects/g/YashTotale/happy-hours/context:javascript"><img alt="Code Quality" src="https://img.shields.io/lgtm/grade/javascript/github/YashTotale/happy-hours?logo=lgtm&logoColor=FFFFFF&labelColor=000000&label=Code%20Quality&style=flat-square"></a>
+  <a href="https://github.com/YashTotale/happy-hours/actions/workflows/integrate.yml"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/YashTotale/happy-hours/integrate.yml?branch=master&logo=github&logoColor=FFFFFF&labelColor=000000&label=Build&style=flat-square"></a>
 </p>
 
 ## Links
